@@ -14,6 +14,9 @@
     <link rel="icon" href="{% static "favicon.ico" %}" class="favicon">
     <title>Dashboard Meu Diabetes</title>
 </head>
+<style type="text/css">
+    table tr:hover {background-color: #e5e1d8; cursor: pointer;}
+</style>
 
 <body>
 
@@ -73,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-12" style="margin: 0 auto;">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table id="table" class="table table-bordered">
                             <thead>
                                 <th>Data de teste</th>
                                 <th>Quantidade de exercícios por semana</th>
@@ -88,7 +91,7 @@
                                         <td><center>{{ analise.dias_exercicio }}</center></td>
                                         <td><center>{{ analise.glicemia_em_jejum }}</center></td>
                                         <td><center>{{ analise.glicemia_pos_refeicao }}</center></td>
-                                        <td><center>{{ analise.fuzzy_result }}</center></td>
+                                        <td><center>{{ analise.fuzzy_result|floatformat }}</center></td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
@@ -98,6 +101,26 @@
             </div>
             <br><br>
         </div>
+
+        <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Resultado</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body alert" id="modaltext">
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     </main><!-- /.container -->
 
@@ -110,5 +133,27 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 </body>
+    
+    <script type="text/javascript">
+        $('#table').find('tr').click( function(){
+            if($(this).find('td:first').text()) {
+                var fuzzy_value = parseFloat($(this)[0].children[4].firstChild.innerHTML);
+                var texto = "";
 
+                if(fuzzy_value < 30.0){
+                    texto = "Sua diabetes está controlada e, portanto, não há grandes " +
+                        " chances de acarretar um caso mais grave."
+                } else if (fuzzy_value >= 30.0 && fuzzy_value <50){
+                    texto = "Sua diabetes está num nível aceitável. ";
+                } else if(fuzzy_value >= 50.0 && fuzzy_value < 70){
+                    texto = "Atenção, sua diabetes está um pouco alta e, portanto, requer cuidados. ";
+                } else {
+                    texto = "Sua diabetes está num nível muito alto e, portanto, sua saúde está em risco. Procure um médico.";
+                }
+                
+                $("#modaltext").html(texto);
+                $("#exampleModal").modal('show');
+            }
+        });
+    </script>
 </html>
