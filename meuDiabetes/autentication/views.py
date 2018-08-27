@@ -29,6 +29,7 @@ def realizarLogin(request):
             request.session['nome'] = usuario.nome
             request.session['email'] = usuario.email
             return JsonResponse({'status': True, 'login': 'Login autorizado.'})
+            #return render(request, 'dashboard.html', {'nome': request.session['nome'], 'email': request.session['email']})
         else:
             return JsonResponse({'status': False, 'erro': 'Usuário ou senha incorretos.'})
     return render(request, 'index.html')
