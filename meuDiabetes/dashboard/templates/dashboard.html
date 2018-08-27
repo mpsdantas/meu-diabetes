@@ -59,10 +59,10 @@
                     <br>
                 </div>
             </div>
-
+            <br><br>
             <div class="row">
                 <div class="col-lg-12" style="margin: 0 auto;">
-                    <table class="table">
+                    <table class="table table-bordered">
                         <thead>
                             <th>Data de teste</th>
                             <th>Quantidade de exercícios por semana</th>
@@ -73,11 +73,11 @@
                         <tbody>
                             {% for analise in analises %}
                                 <tr>
-                                    <td>{{ analise.created }}</td>
-                                    <td>{{ analise.dias_exercicio }}</td>
-                                    <td>{{ analise.glicemia_em_jejum }}</td>
-                                    <td>{{ analise.glicemia_pos_refeicao }}</td>
-                                    <td>{{ analise.fuzzy_result }}</td>
+                                    <td><center>{{ analise.created }}</center></td>
+                                    <td><center>{{ analise.dias_exercicio }}</center></td>
+                                    <td><center>{{ analise.glicemia_em_jejum }}</center></td>
+                                    <td><center>{{ analise.glicemia_pos_refeicao }}</center></td>
+                                    <td><center>{{ analise.fuzzy_result }}</center></td>
                                 </tr>
                             {% endfor %}
                         </tbody>
