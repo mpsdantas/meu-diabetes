@@ -8,6 +8,9 @@ name = "pypi"
 [packages]
 django = "*"
 django-bootstrap-form = "*"
+requests = "*"
+numpy = "*"
+scikit-fuzzy = "*"
 
 [requires]
 python_version = "3.6"
