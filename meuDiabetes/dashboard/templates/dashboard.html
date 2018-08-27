@@ -33,10 +33,11 @@
                     <a class="nav-link" href="#">Cadastrar Dados</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sair</a>
+                    <a class="nav-link" href="/logout">Sair</a>
                 </li>
             </ul>    
         </div>
+
     </nav>
     <br><br>
     <main role="main" class="container">
@@ -62,8 +63,27 @@
             </div>
             <hr>
             <div class="row">
-
+                <div class="col-lg-6" style="margin: 0 auto">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <h2 class="form-signin-heading">Risco da minha diabetes</h2>
+                        <div class="form-group">
+                            <label for="exercicio">Dias regulares spor semana de exercícios</label>
+                            <input type="text" class="form-control" name="exercicio" placeholder="Dias de exercício por semana">
+                        </div>
+                        <div class="form-group">
+                            <label for="glicemia_jejum">Taxa de glicemia em jejum</label>
+                            <input type="text" class="form-control" name="glicemia_jejum" placeholder="Taxa de glicemia em jejum">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="glicemia_pos">Taxa de glicemia duas horas após refeição</label>
+                            <input type="text" class="form-control" name="glicemia_pos" placeholder="Taxa de glicemia duas horas após refeição">
+                        </div>
                 
+                        <button type="submit" name="enviar" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
             </div>
         </div>
 

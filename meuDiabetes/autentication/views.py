@@ -32,6 +32,16 @@ def realizarLogin(request):
         else:
             return JsonResponse({'status': False, 'erro': 'Usuário ou senha incorretos.'})
     return render(request, 'index.html')
+
+def sair(request):
+    try:
+        del request.session['nome']
+        del request.session['email']
+        request.session['autenticado'] = False
+    except KeyError:
+        pass
+
+    return render(request, 'index.html')
     
         
 

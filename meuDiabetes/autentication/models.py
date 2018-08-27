@@ -6,4 +6,6 @@ class Usuario(models.Model):
     senha = models.CharField(max_length=255)
     class Meta:
         unique_together = ('email',)
-# Create your models here.
+
+
+	
