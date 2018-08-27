@@ -42,6 +42,16 @@
     <br><br>
     <main role="main" class="container">
         <div class="col-lg-12">
+            <div class="row">
+                <div class="offset-lg-2 col-lg-8">
+                    <center>
+                        <img width="20%" class="img img-responsive" src="https://olerrelo.com/wp-content/uploads/2017/04/lab-relocation-3.gif"/>
+
+                    </center>
+
+                </div>
+
+            </div>
             <hr>
             <div class="row">
                 <div class="col-lg-4">
@@ -62,28 +72,31 @@
             <br><br>
             <div class="row">
                 <div class="col-lg-12" style="margin: 0 auto;">
-                    <table class="table table-bordered">
-                        <thead>
-                            <th>Data de teste</th>
-                            <th>Quantidade de exercícios por semana</th>
-                            <th>Taxa de glicemia em jejum (mg/mL)</th>
-                            <th>Taxa de glicemia pós refeição (mg/mL)</th>
-                            <th>Resultado (%)</th>
-                        </thead>
-                        <tbody>
-                            {% for analise in analises %}
-                                <tr>
-                                    <td><center>{{ analise.created }}</center></td>
-                                    <td><center>{{ analise.dias_exercicio }}</center></td>
-                                    <td><center>{{ analise.glicemia_em_jejum }}</center></td>
-                                    <td><center>{{ analise.glicemia_pos_refeicao }}</center></td>
-                                    <td><center>{{ analise.fuzzy_result }}</center></td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <th>Data de teste</th>
+                                <th>Quantidade de exercícios por semana</th>
+                                <th>Taxa de glicemia em jejum (mg/mL)</th>
+                                <th>Taxa de glicemia pós refeição (mg/mL)</th>
+                                <th>Resultado (%)</th>
+                            </thead>
+                            <tbody>
+                                {% for analise in analises %}
+                                    <tr>
+                                        <td><center>{{ analise.created }}</center></td>
+                                        <td><center>{{ analise.dias_exercicio }}</center></td>
+                                        <td><center>{{ analise.glicemia_em_jejum }}</center></td>
+                                        <td><center>{{ analise.glicemia_pos_refeicao }}</center></td>
+                                        <td><center>{{ analise.fuzzy_result }}</center></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            <br><br>
         </div>
 
     </main><!-- /.container -->
