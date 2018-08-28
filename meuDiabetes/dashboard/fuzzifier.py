@@ -7,15 +7,22 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	# Generate universe variables
 	#   * Quality and service on subjective ranges [0, 10]
 	#   * Tip has a range of [0, 25] in units of percentage points
-	x_exercicios = np.arange(0, 8, 1) # Dias de exercicio por semana [0,7]
+	exercicio = int(exercicio)
+	glicemia_jejum = int(glicemia_jejum)
+	glicemia_pos = int(glicemia_jejum)
+
+	exercicio = int((exercicio*300)/7)
+	
+	x_exercicios = np.arange(0, 301, 1) # Dias de exercicio por semana [0,7]
 	x_glicemia_jejum = np.arange(0, 301, 1) # Glicemia em jejum [0,300]
 	x_glicemia_pos  = np.arange(0, 301, 1) # Glicemia pos refeicao [0,300]
 	x_saida = np.arange(0,101,1) # saida em porcento 
 
+	
 	# Generate fuzzy membership functions
-	exercicio_baixo = fuzz.trimf(x_exercicios, [0, 1.5, 3])
-	exercicio_normal = fuzz.trimf(x_exercicios, [2, 3.5, 5])
-	exercicio_alto = fuzz.trimf(x_exercicios, [4, 5.5, 7])
+	exercicio_baixo = fuzz.trimf(x_exercicios, [0, 64, 128])
+	exercicio_normal = fuzz.trimf(x_exercicios, [85, 150, 214])
+	exercicio_alto = fuzz.trimf(x_exercicios, [171, 235, 300])
 	glicemia_jejum_baixo = fuzz.trimf(x_glicemia_jejum, [0, 45, 90])
 	glicemia_jejum_normal = fuzz.trimf(x_glicemia_jejum, [70, 105, 140])
 	glicemia_jejum_alto = fuzz.trimf(x_glicemia_jejum, [120, 210, 300])
@@ -55,14 +62,17 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	saida_pp = np.fmin(
 		np.fmin(np.fmax(glicemia_jejum_level_medio,glicemia_jejum_level_baixo), 
 			glicemia_pos_level_medio), saida_pouco_provavel)
+	
 
 	# ---------------- FIM DAS REGRAS DE DECISAO ---------------------------------------------
 
 	# Aggregate all three output membership functions together
 	aggregated = np.fmax(saida_pp, np.fmax(saida_p, saida_mp))
 
+	
+
 	# som ou centroid sao as melhores opcoes
 	#result = fuzz.defuzz(x_saida, aggregated, 'som') 
-	result = fuzz.defuzzify.centroid(x_saida, aggregated)
+	result = fuzz.defuzzify.dcentroid(x_saida, aggregated, 61.4)
 
 	return result
