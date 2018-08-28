@@ -20,8 +20,8 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	glicemia_jejum_normal = fuzz.trimf(x_glicemia_jejum, [70, 105, 140])
 	glicemia_jejum_alto = fuzz.trimf(x_glicemia_jejum, [120, 210, 300])
 	glicemia_pos_baixo = fuzz.trimf(x_glicemia_pos, [0, 50, 100])
-	glicemia_pos_normal = fuzz.trimf(x_glicemia_pos, [80, 135, 190])
-	glicemia_pos_alto = fuzz.trimf(x_glicemia_pos, [160, 230, 300])
+	glicemia_pos_normal = fuzz.trimf(x_glicemia_pos, [80, 100, 120])
+	glicemia_pos_alto = fuzz.trimf(x_glicemia_pos, [100, 150, 300])
 	saida_pouco_provavel = fuzz.trimf(x_saida, [0, 25, 50])
 	saida_provavel = fuzz.trimf(x_saida, [30, 50, 70])
 	saida_muito_provavel = fuzz.trimf(x_saida, [60, 85, 100])
@@ -66,5 +66,3 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	result = fuzz.defuzzify.centroid(x_saida, aggregated)
 
 	return result
-
-
