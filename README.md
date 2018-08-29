@@ -13,6 +13,10 @@ Primeiramente deveremos instalar o pipenv:
 
 `$ pip install pipenv`
 
+Com o pipenv instalados devemos entrar no nosso virtualenv com:
+
+`$ pipenv shell`
+
 Com o pipenv instalado deveremos instalar nossas dependencias:
 
 `$ pipenv install requeriments`
