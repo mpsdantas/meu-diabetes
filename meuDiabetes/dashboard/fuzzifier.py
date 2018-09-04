@@ -34,6 +34,8 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	saida_provavel = fuzz.trimf(x_saida, [30, 50, 70])
 	saida_muito_provavel = fuzz.trimf(x_saida, [60, 85, 100])
 
+	# ---------------------- FIM DEFINICAO DAS FUNCOES FUZZY --------------------------------------------
+
 	# ---------------------- CLASSIFICACAO DOS NIVEIS --------------------------------------------
 	exercicio_level_baixo = fuzz.interp_membership(x_exercicios, exercicio_baixo, exercicio)
 	exercicio_level_normal = fuzz.interp_membership(x_exercicios, exercicio_normal, exercicio)
@@ -46,6 +48,8 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	glicemia_pos_level_baixo = fuzz.interp_membership(x_glicemia_pos, glicemia_pos_baixo, glicemia_pos)
 	glicemia_pos_level_medio = fuzz.interp_membership(x_glicemia_pos, glicemia_pos_normal, glicemia_pos)
 	glicemia_pos_level_alto = fuzz.interp_membership(x_glicemia_pos, glicemia_pos_alto, glicemia_pos)
+
+	# ---------------------- FIM CLASSIFICACAO DOS NIVEIS --------------------------------------------
 
 
 	# ---------------------- REGRAS DE DECISAO -------------------------------------------- 
