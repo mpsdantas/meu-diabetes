@@ -4,22 +4,23 @@ import skfuzzy as fuzz
 
 def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 
-	# Generate universe variables
-	#   * Quality and service on subjective ranges [0, 10]
-	#   * Tip has a range of [0, 25] in units of percentage points
+	# Fazer com que as variaveis sejam inteiras
+	# para podermos fazer os calculos
 	exercicio = int(exercicio)
 	glicemia_jejum = int(glicemia_jejum)
 	glicemia_pos = int(glicemia_jejum)
 
+	# Normalizando a escala de exercicios
 	exercicio = int((exercicio*300)/7)
-	
+
+	# Definindo o range das variaveis	
 	x_exercicios = np.arange(0, 301, 1) # Dias de exercicio por semana [0,7]
 	x_glicemia_jejum = np.arange(0, 301, 1) # Glicemia em jejum [0,300]
 	x_glicemia_pos  = np.arange(0, 301, 1) # Glicemia pos refeicao [0,300]
 	x_saida = np.arange(0,101,1) # saida em porcento 
 
 	
-	# Generate fuzzy membership functions
+	# ---------------------- DEFINICAO DAS FUNCOES FUZZY --------------------------------------------
 	exercicio_baixo = fuzz.trimf(x_exercicios, [0, 64, 128])
 	exercicio_normal = fuzz.trimf(x_exercicios, [85, 150, 214])
 	exercicio_alto = fuzz.trimf(x_exercicios, [171, 235, 300])
@@ -33,9 +34,7 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 	saida_provavel = fuzz.trimf(x_saida, [30, 50, 70])
 	saida_muito_provavel = fuzz.trimf(x_saida, [60, 85, 100])
 
-	# We need the activation of our fuzzy membership functions at these values.
-	# The exact values 6.5 and 9.8 do not exist on our universes...
-	# This is what fuzz.interp_membership exists for!
+	# ---------------------- CLASSIFICACAO DOS NIVEIS --------------------------------------------
 	exercicio_level_baixo = fuzz.interp_membership(x_exercicios, exercicio_baixo, exercicio)
 	exercicio_level_normal = fuzz.interp_membership(x_exercicios, exercicio_normal, exercicio)
 	exercicio_level_alto = fuzz.interp_membership(x_exercicios, exercicio_alto, exercicio)
@@ -66,13 +65,12 @@ def fuzzifier(exercicio, glicemia_jejum, glicemia_pos):
 
 	# ---------------- FIM DAS REGRAS DE DECISAO ---------------------------------------------
 
-	# Aggregate all three output membership functions together
+	# Associando as funcoes para a saida
 	aggregated = np.fmax(saida_pp, np.fmax(saida_p, saida_mp))
 
 	
 
 	# som ou centroid sao as melhores opcoes
-	#result = fuzz.defuzz(x_saida, aggregated, 'som') 
 	result = fuzz.defuzzify.dcentroid(x_saida, aggregated, 61.4)
 
 	return result
